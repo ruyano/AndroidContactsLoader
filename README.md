@@ -22,36 +22,36 @@ implementation 'implementation 'com.github.ruyano:AndroidContactsLoader:0.1.0''
 <uses-permission android:name="android.permission.READ_CONTACTS"/>
 ```
 #### [RXAndroid](https://github.com/ReactiveX/RxAndroid)
-Every method inside the lib returns Observable objects, so you'll need to use RXAndroid to get the responses. It's strongly recomended that you use "Schedulers.newThread()" so the process runs in a background thread.
+Every method inside the lib returns a Observable object, so you'll need to use RXAndroid to get the responses. It's strongly recommended that you use "Schedulers.newThread()" so the process runs in a background thread.
 
 ## How to use
 ##### Ther are 4 ways to load the contacts:  
-  1 - All contacts by once  
-  2 - Query contacts by name (This will returns all contacts with some part of the name equal the name parameter)  
-  3 - All contacts paginated (Use along paginated RacyclerVIew or ListView)  
-  4 - Query contacts by name paginated (Use along paginated RacyclerVIew or ListView) 
-##### 1 - All contacts by once
+  1 - All at once  
+  2 - All at once filtered by name (This will returns all contacts with some part of the name equal the name parameter)  
+  3 - Paginated (use them along with paginated RecyclerView or ListView)  
+  4 - Paginated and filtered by name (use them along with paginated RecyclerView or ListView)
+##### 1 - All at once  
 ```
 CompositeDisposable().add(ContactsLoader(this).load()
             .subscribeOn(Schedulers.newThread())
             .doOnSubscribe { doOnSubscribe() }
             .subscribe { contacts -> doOnFinish(contacts) })
 ```
-##### 2 - Query contacts by name  
+##### 2 - All at once filtered by name
 ```
 CompositeDisposable().add(ContactsLoader(this).load("name")
             .subscribeOn(Schedulers.newThread())
             .doOnSubscribe { doOnSubscribe() }
             .subscribe { contacts -> doOnFinish(contacts) })
 ```
-##### 3 - All contacts paginated
+##### 3 - Paginated
 ```
 CompositeDisposable().add(ContactsLoader(this).load(pageNumber, pageSize)
             .subscribeOn(Schedulers.newThread())
             .doOnSubscribe { doOnSubscribe() }
             .subscribe { contacts -> doOnFinish(contacts) })
 ```
-##### 4 - Query contacts by name paginated
+##### 4 - Paginated and filtered by name
 ```
 CompositeDisposable().add(ContactsLoader(this).load(name, pageNumber, pageSize)
             .subscribeOn(Schedulers.newThread())
